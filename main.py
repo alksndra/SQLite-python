@@ -20,3 +20,7 @@ class Users:
         self.id = id
         self.name = name
 
+
+test_user = Users(1, "David")
+print(test_user)
+print(test_user.name)
