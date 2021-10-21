@@ -12,3 +12,11 @@ def print_users():
 
 
 print_users()
+
+
+class Users:
+
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
