@@ -14,17 +14,24 @@ class User:
         return f"{self.id}, {self.name}"
 
 
-def print_users():
+def get_users():
     cur.execute("SELECT * FROM users")
     rows = cur.fetchall()
+    users_list = []
     for row in rows:
         user = User(row[0], row[1])
+        users_list.append(user)
+    return users_list
+
+
+users = get_users()
+
+
+def print_users(users_list):
+    for user in users_list:
         print (user)
 
 
-print_users()
+print_users(users)
+get_users()
 
-
-test_user = User(1, "David")
-print(test_user)
-print(test_user.name)
