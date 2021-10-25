@@ -40,15 +40,17 @@ def save_user(newname, oldname='', action='INSERT', ):
     conn.commit()
 
 
+def delete_user(condition):
+    cur.execute(f"DELETE FROM users WHERE {condition}")
+    conn.commit()
+
+
 get_users()
 print_users(users)
 
-save_user('Vasya')
+delete_user("name == 'NewVasya'")
 
 users = get_users()
 print_users(users)
 
-save_user('NewVasya', 'Vasya', 'UPDATE')
 
-users = get_users()
-print_users(users)
