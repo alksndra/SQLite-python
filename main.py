@@ -35,10 +35,9 @@ def print_users(users_list):
 def save_user(newname, oldname='', action='INSERT', ):
     if action == 'INSERT':
         cur.execute(f"{action} INTO users (name) VALUES ('{newname}')")
-        conn.commit()
     if action == 'UPDATE':
         cur.execute(f"{action} users SET name = '{newname}' WHERE name = '{oldname}'")
-        conn.commit()
+    conn.commit()
 
 
 get_users()
