@@ -32,6 +32,15 @@ def print_users(users_list):
         print (user)
 
 
+def save_user(username):
+    cur.execute(f"INSERT INTO users (name) VALUES ('{username}')")
+    conn.commit()
+
+
 print_users(users)
 get_users()
 
+save_user("Kolya")
+
+users = get_users()
+print_users(users)
