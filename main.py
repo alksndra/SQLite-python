@@ -29,18 +29,27 @@ users = get_users()
 
 def print_users(users_list):
     for user in users_list:
-        print (user)
+        print(user)
 
 
-def save_user(username):
-    cur.execute(f"INSERT INTO users (name) VALUES ('{username}')")
-    conn.commit()
+def save_user(newname, oldname='', action='INSERT', ):
+    if action == 'INSERT':
+        cur.execute(f"{action} INTO users (name) VALUES ('{newname}')")
+        conn.commit()
+    if action == 'UPDATE':
+        cur.execute(f"{action} users SET name = '{newname}' WHERE name = '{oldname}'")
+        conn.commit()
 
 
 get_users()
 print_users(users)
 
 save_user('Vasya')
+
+users = get_users()
+print_users(users)
+
+save_user('NewVasya', 'Vasya', 'UPDATE')
 
 users = get_users()
 print_users(users)
