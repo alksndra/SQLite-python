@@ -10,13 +10,16 @@ class User:
         self.id = id
         self.name = name
 
+    def __str__(self):
+        return f"{self.id}, {self.name}"
+
 
 def print_users():
     cur.execute("SELECT * FROM users")
     rows = cur.fetchall()
     for row in rows:
         user = User(row[0], row[1])
-        print (user.id, user.name)
+        print (user)
 
 
 print_users()
