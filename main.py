@@ -29,7 +29,7 @@ users = get_users()
 
 def print_users(users_list):
     for user in users_list:
-        print (user)
+        print(user)
 
 
 def save_user(username):
