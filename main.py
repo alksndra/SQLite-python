@@ -37,10 +37,10 @@ def save_user(username):
     conn.commit()
 
 
-print_users(users)
 get_users()
+print_users(users)
 
-save_user("Kolya")
+save_user('Vasya')
 
 users = get_users()
 print_users(users)
