@@ -32,25 +32,38 @@ def print_users(users_list):
         print(user)
 
 
-def save_user(newname, oldname='', action='INSERT', ):
-    if action == 'INSERT':
-        cur.execute(f"{action} INTO users (name) VALUES ('{newname}')")
-    if action == 'UPDATE':
-        cur.execute(f"{action} users SET name = '{newname}' WHERE name = '{oldname}'")
-    conn.commit()
+def save_user(user, users_list):
+    if user not in users_list:
+        user.id = cur.lastrowid
+        print(f"INSERT INTO users (name) VALUES ('{user.name}')")
+        cur.execute(f"INSERT INTO users (name) VALUES ('{user.name}')")
+        conn.commit()
+
+    '''cur.execute(f"UPDATE users SET name = '{user.name}' WHERE id = '{user.id}'")
+        conn.commit()'''
 
 
-def delete_user(condition):
-    cur.execute(f"DELETE FROM users WHERE {condition}")
+def delete_user(column, value):
+    print(f"DELETE FROM users WHERE {column} = '{value}'")
+    cur.execute(f"DELETE FROM users WHERE {column} = '{value}'")
     conn.commit()
 
 
 get_users()
 print_users(users)
 
-delete_user("name == 'NewVasya'")
+a = User('','Petya')
+save_user(a, users)
 
-users = get_users()
+get_users()
 print_users(users)
+
+
+delete_user('name', "Petya")
+
+get_users()
+print_users(users)
+
+
 
 
