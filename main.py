@@ -6,7 +6,7 @@ cur = conn.cursor()
 
 class User:
 
-    def __init__(self, id, name):
+    def __init__(self, name, id=None):
         self.id = id
         self.name = name
 
@@ -17,53 +17,37 @@ class User:
 def get_users():
     cur.execute("SELECT * FROM users")
     rows = cur.fetchall()
-    users_list = []
+    user_list = []
     for row in rows:
-        user = User(row[0], row[1])
-        users_list.append(user)
-    return users_list
+        user = User(row[1], row[0])
+        user_list.append(user)
+    return user_list
 
 
-users = get_users()
-
-
-def print_users(users_list):
-    for user in users_list:
+def print_users():
+    for user in get_users():
         print(user)
 
 
-def save_user(user, users_list):
-    if user not in users_list:
-        user.id = cur.lastrowid
-        print(f"INSERT INTO users (name) VALUES ('{user.name}')")
-        cur.execute(f"INSERT INTO users (name) VALUES ('{user.name}')")
-        conn.commit()
-
-    '''cur.execute(f"UPDATE users SET name = '{user.name}' WHERE id = '{user.id}'")
-        conn.commit()'''
-
-
-def delete_user(column, value):
-    print(f"DELETE FROM users WHERE {column} = '{value}'")
-    cur.execute(f"DELETE FROM users WHERE {column} = '{value}'")
+def save_user(user):
+    print(f"INSERT INTO users (name) VALUES ('{user.name}')")
+    cur.execute(f"INSERT INTO users (name) VALUES ('{user.name}')")
     conn.commit()
 
 
+def delete_user(user):
+    print(f"DELETE FROM users WHERE id = '{user.id}'")
+    cur.execute(f"DELETE FROM users WHERE id = '{user.id}'")
+    conn.commit()
+
+
+print_users()
+
+a = User("Vasya")
+
+save_user(a)
 get_users()
-print_users(users)
+print_users()
 
-a = User('','Petya')
-save_user(a, users)
-
-get_users()
-print_users(users)
-
-
-delete_user('name', "Petya")
-
-get_users()
-print_users(users)
-
-
-
-
+delete_user(a)
+print_users()
