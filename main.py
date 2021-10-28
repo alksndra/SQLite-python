@@ -43,14 +43,10 @@ def delete_user(user):
     conn.commit()
 
 
-print_users()
-
 a = User("Vasya")
 
-save_user(a)
-get_users()
 print_users()
-
+save_user(a)
+print_users()
 delete_user(a)
-
 print_users()
