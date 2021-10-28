@@ -48,7 +48,7 @@ print_users()
 a = User("Vasya")
 
 save_user(a)
-get_users()
+
 print_users()
 
 delete_user(a)
