@@ -45,6 +45,7 @@ def delete_user(user):
 
 a = User("Vasya")
 
+
 print_users()
 save_user(a)
 print_users()
