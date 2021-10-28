@@ -31,8 +31,8 @@ def print_users():
 
 def save_user(user):
     print(f"INSERT INTO users (name) VALUES ('{user.name}')")
-    user.id = cur.lastrowid
     cur.execute(f"INSERT INTO users (name) VALUES ('{user.name}')")
+    user.id = cur.lastrowid
     conn.commit()
     return user
 
