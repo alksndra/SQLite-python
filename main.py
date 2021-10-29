@@ -13,41 +13,37 @@ class User:
     def __str__(self):
         return f"{self.id}, {self.name}"
 
+    def find_all():
+        cur.execute("SELECT * FROM users")
+        rows = cur.fetchall()
+        user_list = []
+        for row in rows:
+            user = User(row[1], row[0])
+            user_list.append(user)
+        return user_list
 
-def get_users():
-    cur.execute("SELECT * FROM users")
-    rows = cur.fetchall()
-    user_list = []
-    for row in rows:
-        user = User(row[1], row[0])
-        user_list.append(user)
-    return user_list
+    def save_user(self):
+        print(f"INSERT INTO users (name) VALUES ('{self.name}')")
+        cur.execute(f"INSERT INTO users (name) VALUES ('{self.name}')")
+        self.id = cur.lastrowid
+        conn.commit()
+
+    def delete_user(self):
+        print(f"DELETE FROM users WHERE id = '{self.id}'")
+        cur.execute(f"DELETE FROM users WHERE id = '{self.id}'")
+        conn.commit()
 
 
 def print_users():
-    for user in get_users():
+    for user in User.find_all():
         print(user)
-
-
-def save_user(user):
-    print(f"INSERT INTO users (name) VALUES ('{user.name}')")
-    cur.execute(f"INSERT INTO users (name) VALUES ('{user.name}')")
-    user.id = cur.lastrowid
-    conn.commit()
-    return user
-
-
-def delete_user(user):
-    print(f"DELETE FROM users WHERE id = '{user.id}'")
-    cur.execute(f"DELETE FROM users WHERE id = '{user.id}'")
-    conn.commit()
 
 
 a = User("Vasya")
 
 
 print_users()
-save_user(a)
+a.save_user()
 print_users()
-delete_user(a)
+a.delete_user()
 print_users()
